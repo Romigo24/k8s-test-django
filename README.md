@@ -135,3 +135,39 @@ curl -I http://star-burger.test
 # 3. Ingress работает
 kubectl get ingress
 ```
+
+
+### Автоматическая очистка сессий
+
+Истекшие сессии автоматически очищаются с помощью CronJob.
+
+Чтобы запустить очистку сессий выполните команды:
+```bash
+# создайте задание cronjob
+kubectl create job --from=cronjob/django-clearsessions django-clearsessions-test
+
+# проверьте логи
+kubectl logs job/django-clearsessions-test
+
+# проверьте статус
+kubectl describe job django-clearsessions-test
+````
+
+Чтобы посмотреть запланированные задания выполните команды:
+```bash
+kubectl get cronjobs
+kubectl describe cronjob django-clearsessions
+```
+
+Дополнительные команды для управления:
+
+```bash
+# Посмотреть историю выполненных Jobs
+kubectl get jobs --watch
+
+# Удалить CronJob (если нужно)
+kubectl delete cronjob django-clearsessions
+
+# Принудительно запустить CronJob раньше расписания
+kubectl create job --from=cronjob/django-clearsessions django-clearsessions-now
+```
