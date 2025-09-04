@@ -98,3 +98,40 @@ data:
 ```bash
 kubectl apply -f kubernetes/
 ```
+
+## Настройка Ingress
+
+1. Добавьте ingress контроллер:
+```bash
+minikube addons enable ingress
+```
+
+2. Запустите тунель в отдельном терминале:
+```bash
+minikube tunnel
+```
+
+3. Добавьте в /etc/hosts:
+```bash
+echo "127.0.0.1 star-burger.test" | sudo tee -a /etc/hosts
+```
+
+4. Обновите конфигурации:
+```bash
+kubectl apply -f kubernetes/
+```
+
+5. Сайт доступен http://star-burger.test
+
+6. Проверяем сервисы:
+```bash
+# 1. Сервисы должны быть ClusterIP
+kubectl get service django-service
+# TYPE должен быть ClusterIP
+
+# 2. Сайт доступен по домену без порта
+curl -I http://star-burger.test
+
+# 3. Ingress работает
+kubectl get ingress
+```

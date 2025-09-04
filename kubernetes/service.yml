@@ -7,7 +7,7 @@ metadata:
     app.kubernetes.io/name: django-service
     app.kubernetes.io/component: backend
 spec:
-  type: NodePort
+  type: ClusterIP
   selector:
     app: django-app
   ports:
