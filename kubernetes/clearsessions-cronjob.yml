@@ -8,11 +8,13 @@ metadata:
     app.kubernetes.io/component: maintenance
 spec:
   schedule: "0 5 * * 1"
+  startingDeadlineSeconds: 300
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
   failedJobsHistoryLimit: 1
   jobTemplate:
     spec:
+      ttlSecondsAfterFinished: 86400
       template:
         spec:
           restartPolicy: Never
