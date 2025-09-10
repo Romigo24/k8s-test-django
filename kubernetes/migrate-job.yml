@@ -16,19 +16,12 @@ spec:
         image: django_app:latest
         imagePullPolicy: IfNotPresent
         command: ["python", "manage.py", "migrate", "--no-input"]
+        envFrom:
+        - secretRef:
+            name: django-secrets
         env:
-        - name: SECRET_KEY
-          valueFrom:
-            secretKeyRef:
-              name: django-secrets
-              key: secret-key
         - name: DEBUG
           value: "False"
         - name: ALLOWED_HOSTS
           value: "*"
-        - name: DATABASE_URL
-          valueFrom:
-            secretKeyRef:
-              name: django-secrets
-              key: database-url
       restartPolicy: Never

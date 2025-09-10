@@ -36,21 +36,14 @@ spec:
         image: postgres:15
         ports:
         - containerPort: 5432
+        envFrom:
+        - secretRef:
+            name: postgresql-secret
         env:
         - name: POSTGRES_DB
           value: star_burger
         - name: POSTGRES_USER
           value: star_burger
-        - name: POSTGRES_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgresql-secret
-              key: password
-        - name: POSTGRES_ROOT_PASSWORD
-          valueFrom:
-            secretKeyRef:
-              name: postgresql-secret
-              key: postgres-password
         volumeMounts:
         - name: postgresql-storage
           mountPath: /var/lib/postgresql/data
