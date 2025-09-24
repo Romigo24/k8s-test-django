@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: django-config
+  namespace: edu-roman-kolyada
+data:
+  DJANGO_SETTINGS_MODULE: "webapp.settings"
+  ALLOWED_HOSTS: "127.0.0.1,localhost,edu-roman-kolyada.yc-sirius-dev.pelid.team"
